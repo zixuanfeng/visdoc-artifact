@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Text File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 500px;
+        }
+        button {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .marker {
+            background-color: yellow;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h4>Please verify and edit the sections</h4>
+    <textarea id="text-content"></textarea>
+    <!-- <div id="text-content"></div> -->
+
+    <button id="confirm-button">Confirm</button>
+
+    <script>
+        // Load the content of the text file into the textarea
+        const file_path = "{{ file_path }}";
+        // const file_path = '/static/segmenter_outputs/segmented_file.txt'
+        console.log("File path = ", file_path)
+        fetch(file_path)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('text-content').value = data;
+            })
+            .catch(error => {
+                console.error('Error fetching the text file:', error);
+            });
+
+        // Handle the Confirm button click
+        document.getElementById('confirm-button').addEventListener('click', () => {
+            const editedText = document.getElementById('text-content').value;
+            console.log('Confirmed text:', editedText);
+            // You can add code here to handle the edited text, such as sending it to a server
+            window.location.href = "/generate"
+        });
+        
+        //change the markers for segments
+        document.getElementById('text-content').addEventListener('dblclick', function(event) {
+            // Check if the double-clicked element is a marker
+            if (event.target.classList.contains('marker')) {
+                // Remove the marker
+                event.target.classList.remove('marker');
+            } else {
+                // Get the selected text range
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    if (!range.collapsed) {
+                        // Wrap the selected text in a marker span
+                        const span = document.createElement('span');
+                        span.className = 'marker';
+                        range.surroundContents(span);
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

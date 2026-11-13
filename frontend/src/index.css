@@ -1,0 +1,227 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+  display: flex; /* Use flexbox to center the modal */
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6); /* Black background with higher opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  position: relative; /* Relative to position the close button */
+  padding: 20px;
+  border-radius: 8px;
+  border: none; /* Removed the border for a cleaner look */
+  width: 80%; /* Cover most of the screen */
+  max-width: 800px; /* Prevent it from growing too wide on large screens */
+  max-height: 90vh; /* Limit the height to 90% of the viewport */
+  overflow-y: auto; /* Enable scrolling if content exceeds modal height */
+  z-index: 10000;
+  overflow-y: auto;
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 10px; /* Position it at the top */
+  right: 20px; /* Position it to the right */
+  color: #aaaaaa;
+  font-size: 28px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1002;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sequence-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.sequence-button:hover {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+}
+
+.sequence-buttons-container {
+  position: sticky;
+  /* top: 0; */
+  display: flex;
+  flex-wrap: wrap;       /* Allows wrapping if many buttons appear */
+  margin: 16px 0;
+  display: flex;
+  align-items: center;  /* Align text and buttons properly */
+  gap: 10px; /* Add some spacing between text and buttons */
+}
+
+.sequence-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+.graph-container {
+  border: 2px solid #d3d3d3; /* Light gray border */
+  border-radius: 0px;  /* Rounded corners */
+  padding: 0px; /* Adds space inside the border */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  background-color: white; /* Ensure it has a background */
+  margin-top: 0px;
+  /* Ensure it has proper dimensions */
+  width: 100%;
+  height: 90vh; /* Adjust as needed */
+  display: flex; /* Important for ReactFlow to work */
+}
+
+
+.common-button {
+  display: inline-block;
+  background-color: #bbbbbb; /* Gray background */
+  color: #151313; /* White text */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 0.25rem 0.5rem; /* Padding for content */
+  font-size: 0.8rem; /* Small font size */
+  text-align: center; /* Center-align text */
+  line-height: 1rem; /* Line height for balanced appearance */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin: 0 0 0 0; /* Add space between buttons */
+}
+
+.common-button:hover {
+  background-color: #a6a6a6; /* Darker gray on hover */
+}
+
+.plus-button {
+  width: 38px;
+  height: 25px;
+  line-height: 15px; /* Center-align text vertically */
+  border-radius: 20%; /* Circular shape for + button */
+  margin-left: 0.2rem; /* Add spacing specifically for the + button */
+}
+
+.node-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.edge-hover:hover {
+  stroke: #14cfa0;
+}
+
+/* Pop-up effect for highlighted nodes */
+/* .highlighted-node {
+  background-color: #1e4ea7 !important;
+  border: 1.5px solid #61636d;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  height: 72px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+} */
+
+@keyframes glowEffect {
+  0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.8); } /* Bright start */
+  50% { box-shadow: 0 0 15px rgba(255, 140, 0, 1); } /* Stronger glow */
+  100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.8); } /* Back to normal */
+}
+
+.highlighted-node {
+  background-color: #ffd700 !important; /* Bright Yellow */
+  border: 3px solid #ff4500 !important; /* Strong orange border */
+  border-radius: 25px;
+  animation: glowEffect 1.5s ease-in-out infinite alternate; /* Smooth glow */
+}
+
+
+.highlighted-node:hover {
+  transform: scale(1.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.highlighted-node .new_node_label {
+  font-size: 22px;
+  font-weight: normal;
+  color: #353030;
+}
+
+.active-search-result {
+  transform: scale(1.5); /* Increase node size */
+  background-color: #e1ff00 !important; /* Bright Red-Orange */
+  border: 6px solid #bbc625 !important; /* Thick dark red border */
+  box-shadow: 0px 0px 25px rgb(255, 242, 0); /* Glowing effect */
+  border-radius: 25px;
+  font-size: 20px !important; /* Make text larger */
+  transition: transform 0.1s ease-in-out, border 0.1s ease-in-out;
+}
+
+/* Close Button Styles */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  width: 25px;  /* Set fixed width */
+  height: 25px; /* Set fixed height */
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  color: white;
+  border-radius: 4px; /* Slight rounding for a modern look */
+  border: none;
+}
+
+.close:hover {
+  background: rgba(0, 0, 0, 0.8); /* Darker on hover */
+}
+
+.search-tooltip {
+  margin-top: 5px;
+  background-color: #333;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0.9;
+  z-index: 1000;
+  text-align: center;
+}
